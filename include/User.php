@@ -9,9 +9,8 @@ class User {
         if (!isset($_COOKIE['user_id'], $_COOKIE['user_hash'], $_COOKIE['user_mac'])) {
             $this->admin = 0;
             $this->id = random(16);
-            $this->hash = sha1($this->id);
-            $this->bugs = array();
-            $this->mac = sha1(SIGNATURE . $this->id . $this->hash);
+            $this->hash = hash('sha256', $this->id);
+            $this->mac = hash('sha256', SIGNATURE . $this->id . $this->hash);
 
             setcookie('user_id', $this->id);
             setcookie('user_hash', $this->hash);
@@ -19,10 +18,11 @@ class User {
         } else {
             $verify = SIGNATURE . $_COOKIE['user_id'] . $_COOKIE['user_hash'];
 
-            if (sha1($verify) != $_COOKIE['user_mac']) {
+            if (hash('sha256', $verify) != $_COOKIE['user_mac']) {
                 setcookie('user_id', '', time()-3600);
                 setcookie('user_hash', '', time()-3600);
                 setcookie('user_mac', '', time()-3600);
+
                 throw new Exception("Cookie has been modified");
             }
 
@@ -36,7 +36,7 @@ class User {
     public function setUser($id, $hash) {
         $this->id = $id;
         $this->hash = $hash;
-        $this->mac = sha1(SIGNATURE . $this->id . $this->hash);
+        $this->mac = hash('sha256', SIGNATURE . $this->id . $this->hash);
 
         $this->updateCookie();
     }
