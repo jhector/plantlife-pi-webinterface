@@ -1,29 +1,26 @@
 <?php
 class Database {
+    public $conn;
+
     public function __construct() {
         global $config;
 
-        $conn = mysql_connect($config['db_host'], $config['db_user'], $config['db_pass']);
+        $this->conn = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 
-        if (!$conn)
-            throw new Exception('Couldn\'t connect to  database'.mysql_error());
-
-        $db_selected = mysql_select_db($config['db_name']);
-
-        if (!$db_selected) 
-            throw new Exception('Database doesn\'t exist: '.mysql_error());
+        if(mysqli_connect_errno())
+	    throw new Exception("Failed to connect to MySQL: " . mysqli_connect_error());
     }
 
     public function exists($table, $condition) {
         global $config;
 
         $qry = "SELECT id FROM ".$config['db_prefix'].$table." ".$condition;
-        $result = mysql_query($qry);
+        $result = mysqli_query($this->conn, $qry);
 
         if (!$result)
-            throw new Exception(mysql_error());
+            throw new Exception(mysqli_error($this->conn));
 
-        if (mysql_num_rows($result) > 0)
+        if (mysqli_num_rows($this->conn, $result) > 0)
             return 1;
         else
             return 0;
@@ -36,13 +33,13 @@ class Database {
             throw new Exception('Operation not allowed');
 
         $qry = "SELECT $what FROM ".$config['db_prefix'].$table." ".$condition;
-        $result = mysql_query($qry);
+        $result = mysqli_query($this->conn, $qry);
 
         if (!$result)
-            throw new Exception(mysql_error());
+            throw new Exception(mysqli_error($this->conn));
 
         $ret = array();
-        while ($row = mysql_fetch_array($result))
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
             array_push($ret, $row);
 
         return $ret;
@@ -68,22 +65,22 @@ class Database {
             throw new Exception("Operation not allowed");
 
         $qry = "INSERT INTO ".$config['db_prefix'].$table." $keys VALUES $values";
-        $result = mysql_query($qry);
+        $result = mysqli_query($this->conn, $qry);
 
         if (!$result)
-            throw new Exception(mysql_error());
+            throw new Exception(mysqli_error($this->conn));
 
-        return mysql_insert_id();
+        return mysqli_insert_id($this->conn);
     }
 
     public function delete($table, $condition) {
         global $config;
 
         $qry = "DELETE FROM ".$config['db_prefix'].$table." ".$condition;
-        $result = mysql_query($qry);
+        $result = mysqli_query($this->conn, $qry);
 
         if (!$result)
-            throw new Exception(mysql_error());
+            throw new Exception(mysqli_error($this->conn));
 
         return true;
     }
@@ -99,10 +96,10 @@ class Database {
 
         $set = join(", ", $tmp);
         $qry = "UPDATE ".$config['db_prefix'].$table." SET $set $condition";
-        $result = mysql_query($qry);
+        $result = mysqli_query($this->conn, $qry);
 
         if (!$result)
-            throw new Exception(mysql_error());
+            throw new Exception(mysqli_error($this->conn));
     }
 }
 ?>
