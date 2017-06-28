@@ -5,10 +5,10 @@ require_once 'twig/lib/Twig/Autoloader.php';
 
 define('SIGNATURE', 'hlfVbmIHGPtXSkpaCXFmn6ocXa!5wsF+');
 
-$config['db_host'] = "";
-$config['db_user'] = "";
-$config['db_pass'] = "";
-$config['db_name'] = "";
+$config['db_host'] = "localhost";
+$config['db_user'] = "user";
+$config['db_pass'] = "user";
+$config['db_name'] = "plantlife";
 $config['db_prefix'] = "";
 
 $controllers = array(
