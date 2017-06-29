@@ -4,21 +4,16 @@ class User {
     public $admin;
     public $hash;
     public $mac;
+    public $logged_in;
 
     public function __construct($db) {
-        if (!isset($_COOKIE['user_id'], $_COOKIE['user_hash'], $_COOKIE['user_mac'])) {
-            $this->admin = 0;
-            $this->id = random(16);
-            $this->hash = hash('sha256', $this->id);
-            $this->mac = hash('sha256', SIGNATURE . $this->id . $this->hash);
+        $this->admin = 0;
+        $this->logged_in = 0;
 
-            setcookie('user_id', $this->id);
-            setcookie('user_hash', $this->hash);
-            setcookie('user_mac', $this->mac);
-        } else {
+        if (isset($_COOKIE['user_id'], $_COOKIE['user_hash'], $_COOKIE['user_mac'])) {
             $verify = SIGNATURE . $_COOKIE['user_id'] . $_COOKIE['user_hash'];
 
-            if (hash('sha256', $verify) != $_COOKIE['user_mac']) {
+            if (hash('sha256', $verify) !== $_COOKIE['user_mac']) {
                 setcookie('user_id', '', time()-3600);
                 setcookie('user_hash', '', time()-3600);
                 setcookie('user_mac', '', time()-3600);
@@ -30,6 +25,7 @@ class User {
             $this->hash = $_COOKIE['user_hash'];
             $this->mac = $_COOKIE['user_mac'];
             $this->admin = $db->exists("user", "WHERE userid='".mysqli_real_escape_string($db->conn, $_COOKIE['user_id'])."' AND admin=1 LIMIT 1");
+            $this->logged_in = 1;
         }
     }
 
@@ -61,6 +57,14 @@ class User {
 
     public function setAdmin($status) {
         $this->admin = $status;
+    }
+
+    public function isLoggedIn() {
+        return $this->logged_in;
+    }
+
+    public function setLoggedIn($value) {
+        $this->logged_in = $value;
     }
 }
 ?>

@@ -12,10 +12,11 @@ $config['db_name'] = "plantlife";
 $config['db_prefix'] = "";
 
 $controllers = array(
-	'BaseController',
-	'DefaultController',
-	'AdminController',
-	);
+    'BaseController',
+    'DefaultController',
+    'AdminController',
+    'LoginController'
+    );
 
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('skeleton');

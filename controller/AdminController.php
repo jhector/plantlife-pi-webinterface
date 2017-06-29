@@ -1,15 +1,19 @@
 <?php
 class AdminController extends BaseController {
-	public function indexAction($db, $user) {
-		global $twig;
+    public function indexAction($db, $user) {
+        global $twig;
 
-		$this->vars['admin'] = $user->isAdmin();
-		$this->vars['active'] = 'Admin';
+        if (!$user->isAdmin())
+            throw new Exception("You don't have the permission to view this site", 1);
 
-		$template = $twig->loadTemplate($this->site.".twig");
-		echo $template->render($this->vars);
+        $this->vars['admin'] = $user->isAdmin();
+        $this->vars['logged_in'] = $user->isLoggedIn();
+        $this->vars['active'] = 'Admin';
 
-		exit(0);
-	}
+        $template = $twig->loadTemplate($this->site.".twig");
+        echo $template->render($this->vars);
+
+        exit(0);
+    }
 }
 ?>
