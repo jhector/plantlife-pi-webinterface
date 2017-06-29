@@ -21,7 +21,7 @@
 
 
 <!--  CSS for Demo Purpose, don't include it in your project     -->
-<link href="assets/css/demo.css" rel="stylesheet" />
+<link href="assets/css/plantlife.css" rel="stylesheet" />
 
 
 <!--     Fonts and icons     -->
@@ -43,12 +43,14 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    {% if admin == 1 %}
                     <li class="{% if active == "Admin" %}active{% endif %}">
                         <a href="?site=admin">
                             <i class="pe-7s-tools"></i>
                             <p>Admin</p>
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -66,6 +68,38 @@
                         <a class="navbar-brand" href="#">{{ active }}</a>
                     </div>
                     <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if logged_in == 0 %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                                <ul id="login-dp" class="dropdown-menu">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                 <form class="form" role="form" method="post" action="?site=login" accept-charset="UTF-8" id="login-nav">
+                                                    <div class="form-group">
+                                                         <label class="sr-only" for="inputUsername">Username</label>
+                                                         <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Username" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                         <label class="sr-only" for="inputPassword">Password</label>
+                                                         <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                         <button type="submit" class="btn btn-primary btn-block" id="loginbtn">Sign in</button>
+                                                    </div>
+                                                 </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="?site=login&action=logout">Logout</a>
+                            </li>
+                            {% endif %}
+                        </ul>
                     </div> <!-- collapse navbar-collapse -->
                 </div>
             </nav>

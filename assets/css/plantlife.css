@@ -1,0 +1,31 @@
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+}
+
+#login-dp .help-block{
+    font-size:12px
+}
+
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+
+#inputUsername, #inputPassword {
+    border-radius: 4px;
+    border-bottom-color: #E3E3E3;
+}
+
+#loginbtn {
+    background-color: #5b8ddd;
+    border-color: #5b8ddd;
+    color: white;
+}
