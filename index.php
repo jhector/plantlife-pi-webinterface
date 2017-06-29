@@ -22,7 +22,11 @@ try {
     $front->run($db, $user);
 
 } catch (Exception $e) {
-    $vars = array('error' => $e->getMessage(), 'admin' => 0);
+    $vars = array(
+        'error' => $e->getMessage(),
+        'admin' => 0,
+        'active' => "Error"
+    );
 
     $template = $twig->loadTemplate("error.twig");
     echo $template->render($vars);
