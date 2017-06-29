@@ -1,10 +1,10 @@
 <?php
-class DefaultController extends BaseController {
+class AdminController extends BaseController {
 	public function indexAction($db, $user) {
 		global $twig;
 
 		$this->vars['admin'] = $user->isAdmin();
-		$this->vars['active'] = 'Dashboard';
+		$this->vars['active'] = 'Admin';
 
 		$template = $twig->loadTemplate($this->site.".twig");
 		echo $template->render($this->vars);

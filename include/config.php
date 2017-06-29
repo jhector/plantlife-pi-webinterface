@@ -14,12 +14,7 @@ $config['db_prefix'] = "";
 $controllers = array(
 	'BaseController',
 	'DefaultController',
-	'PanelController',
-	'BugController',
-	'LostController',
-	'LoginController',
-	'ContactController',
-	'NewsController'
+	'AdminController',
 	);
 
 Twig_Autoloader::register();

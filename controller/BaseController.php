@@ -17,7 +17,7 @@ class BaseController {
 		elseif (isset($_POST['site']))
 			$this->site = strtolower($_POST['site']);
 		else 
-			$this->site = "home";
+			$this->site = "dashboard";
 
 		$this->vars = array();
 	}
