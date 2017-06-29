@@ -20,7 +20,7 @@ class Database {
         if (!$result)
             throw new Exception(mysqli_error($this->conn));
 
-        if (mysqli_num_rows($this->conn, $result) > 0)
+        if (mysqli_num_rows($result) > 0)
             return 1;
         else
             return 0;
