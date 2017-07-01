@@ -10,138 +10,138 @@
 
 <title>Plantlife</title>
 
-<!-- Bootstrap core CSS     -->
+<!-- Bootstrap core CSS   -->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
 <!-- Animation library for notifications   -->
 <link href="assets/css/animate.min.css" rel="stylesheet"/>
 
-<!--  Light Bootstrap Table core CSS    -->
+<!--  Light Bootstrap Table core CSS  -->
 <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
 
-<!--  CSS for Demo Purpose, don't include it in your project     -->
+<!--  CSS for Demo Purpose, don't include it in your project   -->
 <link href="assets/css/plantlife.css" rel="stylesheet" />
 
 
-<!--     Fonts and icons     -->
+<!--   Fonts and icons   -->
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="wrapper">
-        <div class="sidebar" data-color="blue">
-            <div class="sidebar-wrapper">
-                <div class="logo">
-                    <a href="/" class="simple-text">Plantlife</a>
-                </div>
-                <ul class="nav">
-                    <li class="{% if active == "Dashboard" %}active{% endif %}">
-                        <a href="?site=dashboard">
-                            <i class="pe-7s-graph"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    {% if admin == 1 %}
-                    <li class="{% if active == "Admin" %}active{% endif %}">
-                        <a href="?site=admin">
-                            <i class="pe-7s-tools"></i>
-                            <p>Admin</p>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
+  <div class="wrapper">
+    <div class="sidebar" data-color="blue">
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a href="/" class="simple-text">Plantlife</a>
         </div>
+        <ul class="nav">
+          <li class="{% if active == "Dashboard" %}active{% endif %}">
+            <a href="?site=dashboard">
+              <i class="pe-7s-graph"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          {% if admin == 1 %}
+          <li class="{% if active == "Admin" %}active{% endif %}">
+            <a href="?site=admin">
+              <i class="pe-7s-tools"></i>
+              <p>Admin</p>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
 
-        <div class="main-panel">
-            <nav class="navbar navbar-default navbar-fixed">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">{{ active }}</a>
+    <div class="main-panel">
+      <nav class="navbar navbar-default navbar-fixed">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{{ active }}</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              {% if logged_in == 0 %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                <ul id="login-dp" class="dropdown-menu">
+                  <li>
+                    <div class="row">
+                      <div class="col-md-12">
+                         <form class="form" role="form" method="post" action="?site=login" accept-charset="UTF-8" id="login-nav">
+                          <div class="form-group">
+                             <label class="sr-only" for="inputUsername">Username</label>
+                             <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Username" required>
+                          </div>
+                          <div class="form-group">
+                             <label class="sr-only" for="inputPassword">Password</label>
+                             <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                          </div>
+                          <div class="form-group">
+                             <button type="submit" class="btn btn-primary btn-block" id="loginbtn">Sign in</button>
+                          </div>
+                         </form>
+                      </div>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            {% if logged_in == 0 %}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-                                <ul id="login-dp" class="dropdown-menu">
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                 <form class="form" role="form" method="post" action="?site=login" accept-charset="UTF-8" id="login-nav">
-                                                    <div class="form-group">
-                                                         <label class="sr-only" for="inputUsername">Username</label>
-                                                         <input name="username" type="username" class="form-control" id="inputUsername" placeholder="Username" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                         <label class="sr-only" for="inputPassword">Password</label>
-                                                         <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                         <button type="submit" class="btn btn-primary btn-block" id="loginbtn">Sign in</button>
-                                                    </div>
-                                                 </form>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            {% else %}
-                            <li>
-                                <a href="?site=login&action=logout">Logout</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div> <!-- collapse navbar-collapse -->
-                </div>
-            </nav>
+                  </li>
+                </ul>
+              </li>
+              {% else %}
+              <li>
+                <a href="?site=login&action=logout">Logout</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div> <!-- collapse navbar-collapse -->
+        </div>
+      </nav>
 
-            <div class="content">
-                {% block content %}
-                {% endblock %}
-            </div> <!-- content -->
+      <div class="content">
+        {% block content %}
+        {% endblock %}
+      </div> <!-- content -->
 
-            <footer class="footer">
-                <div class="container-fluid">
-                    <p class="copyright pull-right">
-                        &copy; <script>document.write(new Date().getFullYear())</script> Plantlife, based on template by <a href="http://www.creative-tim.com">Creative Tim</a>
-                </div>
-            </footer>
-        </div> <!-- main-panel -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <p class="copyright pull-right">
+            &copy; <script>document.write(new Date().getFullYear())</script> Plantlife, based on template by <a href="http://www.creative-tim.com">Creative Tim</a>
+        </div>
+      </footer>
+    </div> <!-- main-panel -->
 
-    </div> <!-- wrapper -->
+  </div> <!-- wrapper -->
 
-    <!--   Core JS Files   -->
-    <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <!--   Core JS Files   -->
+  <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <!--  Checkbox, Radio & Switch Plugins -->
-    <script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
+  <!--  Checkbox, Radio & Switch Plugins -->
+  <script src="assets/js/bootstrap-checkbox-radio-switch.js"></script>
 
-    <!--  Charts Plugin -->
-    <script src="assets/js/chartist.min.js"></script>
+  <!--  Charts Plugin -->
+  <script src="assets/js/chartist.min.js"></script>
 
-    <!--  Notifications Plugin    -->
-    <script src="assets/js/bootstrap-notify.js"></script>
+  <!--  Notifications Plugin  -->
+  <script src="assets/js/bootstrap-notify.js"></script>
 
-    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-    <script src="assets/js/light-bootstrap-dashboard.js"></script>
+  <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+  <script src="assets/js/light-bootstrap-dashboard.js"></script>
 
-    <!--  Plantlife code    -->
-    <script src="assets/js/plantlife.js"></script>
+  <!--  Plantlife code  -->
+  <script src="assets/js/plantlife.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            plantlife.initChartist();
-        });
-    </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      plantlife.initChartist();
+    });
+  </script>
 </body>
 </html>
