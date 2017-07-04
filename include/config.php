@@ -15,7 +15,8 @@ $controllers = array(
     'BaseController',
     'DefaultController',
     'AdminController',
-    'LoginController'
+    'LoginController',
+    'DataController',
     );
 
 Twig_Autoloader::register();
