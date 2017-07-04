@@ -101,5 +101,20 @@ class Database {
         if (!$result)
             throw new Exception(mysqli_error($this->conn));
     }
+
+    public function raw_query($qry) {
+        global $config;
+
+        $result = mysqli_query($this->conn, $qry);
+
+        if (!$result)
+            throw new Exception(mysqli_error($this->conn));
+
+        return $result;
+    }
+
+    public function escape($stmt) {
+        return mysqli_real_escape_string($this->conn, $stmt);
+    }
 }
 ?>

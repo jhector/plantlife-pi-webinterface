@@ -6,7 +6,7 @@ class LoginController extends BaseController {
         if (!isset($_POST['username'], $_POST['password']))
             throw new Exception("Please supply a username and password");
 
-        $username = mysqli_real_escape_string($db->conn, trim($_POST['username']));
+        $username = $db->escape(trim($_POST['username']));
 
         $data = $db->select("*", "user", "WHERE name='$username' LIMIT 1");
 

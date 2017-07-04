@@ -24,7 +24,7 @@ class User {
             $this->id = $_COOKIE['user_id'];
             $this->hash = $_COOKIE['user_hash'];
             $this->mac = $_COOKIE['user_mac'];
-            $this->admin = $db->exists("user", "WHERE userid='".mysqli_real_escape_string($db->conn, $_COOKIE['user_id'])."' AND admin=1 LIMIT 1");
+            $this->admin = $db->exists("user", "WHERE userid='".$db->escape($_COOKIE['user_id'])."' AND admin=1 LIMIT 1");
             $this->logged_in = 1;
         }
     }
