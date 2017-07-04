@@ -31,5 +31,12 @@ plantlife = {
     ];
 
     Chartist.Line('#moisturedata', dataMoisture, optionsMoisture, responsiveMoisture);
-    }
+  },
+
+  initDatepicker: function() {
+    $('.datepicker-container input').datepicker({
+      todayHighlight: true,
+      format: "yyyy-mm-dd"
+    });
+  }
 }

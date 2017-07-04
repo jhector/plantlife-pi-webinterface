@@ -16,9 +16,11 @@
 <!-- Animation library for notifications   -->
 <link href="assets/css/animate.min.css" rel="stylesheet"/>
 
-<!--  Light Bootstrap Table core CSS  -->
+<!--  Light Bootstrap Table core CSS -->
 <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
+<!-- Datepicker CSS -->
+<link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 
 <!--  CSS for Demo Purpose, don't include it in your project   -->
 <link href="assets/css/plantlife.css" rel="stylesheet" />
@@ -135,13 +137,13 @@
   <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
   <script src="assets/js/light-bootstrap-dashboard.js"></script>
 
+  <!-- Datepicker JS -->
+  <script src="assets/js/bootstrap-datepicker.min.js"></script>
+
   <!--  Plantlife code  -->
   <script src="assets/js/plantlife.js"></script>
 
-  <script type="text/javascript">
-    $(document).ready(function(){
-      plantlife.initChartist();
-    });
-  </script>
+  {% block customscript %}
+  {% endblock %}
 </body>
 </html>
