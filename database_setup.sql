@@ -7,6 +7,8 @@ CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
 -- Grant the user access to the desired database
 GRANT ALL ON `plantlife`.* TO 'user'@'localhost' IDENTIFIED BY 'user';
 
+USE plantlife;
+
 -- Create table for storing user infos
 CREATE TABLE IF NOT EXISTS user (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
