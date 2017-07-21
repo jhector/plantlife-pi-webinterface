@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS sensortype (
 CREATE TABLE IF NOT EXISTS sensordata (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	typeid INT,
-	value DECIMAL,
+	value FLOAT,
 	date DATETIME,
 	FOREIGN KEY (typeid) REFERENCES sensortype(id)
 );
