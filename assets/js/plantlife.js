@@ -38,6 +38,9 @@ plantlife = {
       showArea: true,
       axisX: {
         showGrid: false,
+	labelInterpolationFnc: function(value, index) {
+	  return index % 6 === 0 ? value : null;
+	}
       },
       showLine: true,
       showPoint: false,
