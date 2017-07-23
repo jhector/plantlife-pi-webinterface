@@ -1,42 +1,93 @@
+function getData(type, start, end) {
+  return new Promise(function (resolve, reject) {
+    $.ajax({
+      url: "index.php",
+      type: "get", // use GET request
+      data: {
+        site: 'data',
+        type: type,
+        start: start,
+        end: end
+      }, success: function (response) {
+        response['dates'].forEach(function(part, index, arr) {
+          arr[index] = /....-..-.. (..:..):../g.exec(part)[1];
+        });
+
+        resolve(response);
+      }
+    });
+  });
+}
+
+function updateChart(response) {
+  chartist = document.querySelector("#"+response['type']+"chart").__chartist__;
+  chartist.update({labels: response['dates'], series: [response['values']]});
+}
+
 plantlife = {
   initChartist: function(){
     var dataMoisture = {
-      labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-      series: [
-         [944, 846, 788, 752, 695, 586, 554, 492, 490, 385, 287],
-      ]
+      labels: [],
+      series: [[],]
     };
 
     var optionsMoisture = {
       lineSmooth: false,
       low: 0,
       high: 1000,
-      showArea: false,
-      height: "245px",
+      showArea: true,
       axisX: {
         showGrid: false,
       },
       showLine: true,
-      showPoint: true,
+      showPoint: false,
     };
 
-    var responsiveMoisture = [
-      ['screen and (max-width: 640px)', {
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
-          }
-        }
-      }]
-    ];
+    Chartist.Line('#moisturechart', dataMoisture, optionsMoisture);
 
-    Chartist.Line('#moisturedata', dataMoisture, optionsMoisture, responsiveMoisture);
+    var dataLight = dataMoisture;
+    var optionsLight = optionsMoisture;
+    optionsLight.showArea = false;
+
+    Chartist.Line('#lightchart', dataLight, optionsLight);
+
+    var dataTemperature = dataMoisture;
+    var optionsTemperature = optionsMoisture;
+    optionsTemperature.showArea = false;
+    optionsTemperature.low = -30;
+    optionsTemperature.high = 60;
+
+    Chartist.Line('#temperaturechart', dataTemperature, optionsTemperature);
+
+    var dataHumidity = dataMoisture;
+    var optionsHumidity = optionsMoisture;
+    optionsHumidity.showArea = true;
+    optionsHumidity.low = 0;
+    optionsHumidity.high = 100;
+
+    Chartist.Line('#humiditychart', dataHumidity, optionsHumidity);
+
+    now = new Date();
+    month = now.getMonth() + 1; // January is 0
+    dateString = now.getFullYear() + "-" + month + "-" + now.getDate();
+
+    getData('moisture', dateString, dateString).then(updateChart);
   },
 
   initDatepicker: function() {
     $('.datepicker-container input').datepicker({
       todayHighlight: true,
-      format: "yyyy-mm-dd"
+      format: "yyyy-mm-dd",
+      autoclose: true,
+    });
+
+    $('.datepicker-container input').datepicker("setDate", new Date());
+
+    $('.datepicker-container input').datepicker().on("input change", function (e) {
+      type = /(.*)-start/g.exec(e.target.id)[1];
+      value = e.target.value;
+
+      getData(type, value, value).then(updateChart);
     });
   }
 }

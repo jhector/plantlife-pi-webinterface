@@ -58,7 +58,7 @@ class Database {
         $keys = "(".join(',', $keys).")";
         $values = "(".join(',', $values).")";
 
-        if (preg_match('/[^a-zA-Z0-9_]information_schema[^a-zA-Z0-9_]/', strtolower($keys))) 
+        if (preg_match('/[^a-zA-Z0-9_]information_schema[^a-zA-Z0-9_]/', strtolower($keys)))
             throw new Exception("Operation not allowed");
 
         if (preg_match('/[^a-zA-Z0-9_]information_schema[^a-zA-Z0-9_]/', strtolower($values)))

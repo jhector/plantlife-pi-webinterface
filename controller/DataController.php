@@ -18,12 +18,19 @@ class DataController extends BaseController {
                               " BETWEEN '" . $db->escape($start) . " 00:00:00'" .
                               " AND '" . $db->escape($end) . " 23:59:59'");
 
-        $result = array();
+        $dates = array();
+        $values = array();
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-            array_push($result, $row);
+            array_push($values, $row['value']);
+            array_push($dates, $row['date']);
         }
 
-        echo json_encode($result);
+        header('Content-Type: application/json');
+        echo json_encode(array(
+            "type" => $type,
+            "dates" => $dates,
+            "values" => $values
+            ));
 
         exit(0);
     }
