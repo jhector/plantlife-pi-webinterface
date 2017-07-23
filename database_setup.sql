@@ -7,10 +7,8 @@ CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
 -- Grant the user access to the desired database
 GRANT ALL ON `plantlife`.* TO 'user'@'localhost' IDENTIFIED BY 'user';
 
-USE plantlife;
-
 -- Create table for storing user infos
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS plantlife.user (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	userid INT,
 	name VARCHAR(128),
@@ -19,13 +17,13 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 -- Create table that contains all available sensor types
-CREATE TABLE IF NOT EXISTS sensortype (
+CREATE TABLE IF NOT EXISTS plantlife.sensortype (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(128)
 );
 
 -- Create table for storing the sensor data
-CREATE TABLE IF NOT EXISTS sensordata (
+CREATE TABLE IF NOT EXISTS plantlife.sensordata (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	typeid INT,
 	value FLOAT,
@@ -34,11 +32,11 @@ CREATE TABLE IF NOT EXISTS sensordata (
 );
 
 -- Create default admin user admin:admin (sha256("admin"))
-INSERT INTO user(userid, name, password, admin) VALUES
+INSERT INTO plantlife.user(userid, name, password, admin) VALUES
 (1, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1);
 
 -- Fill the sensortype table
-INSERT INTO sensortype(name) VALUES
+INSERT INTO plantlife.sensortype(name) VALUES
 ('moisture'),
 ('humidity'),
 ('temperature'),
